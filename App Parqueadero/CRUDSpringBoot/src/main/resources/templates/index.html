@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title></title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+</head>
+<body>
+	<div class="container mt-4">
+		<table class= "table">
+			<thead>
+				<tr>
+					<th>PLACA</th>
+					<th>FECHA INGRESO</th>
+					<th>FECHA SALIDA</th>
+					<th>ACCIONES</th>
+				</tr>
+			
+			</thead>
+			<tbody>
+				<tr th:each="vehiculo:${vehiculos}">
+					<td>${vehiculo.placa}</td>
+					<td>${vehiculo.horaIngreso}</td>
+					<td>${vehiculo.horaSalida}</td>
+					<td>
+					<a class="btn btn-warning">Editar</a>
+					<a class="btn btn-danger">Eliminar</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</body>
+</html>
