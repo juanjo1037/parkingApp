@@ -5,7 +5,8 @@ import com.parkingapp.api.models.Bill;
 import com.parkingapp.api.services.BillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import static com.parkingapp.api.routes.GeneralRoutes.BILLS;
+
+import static com.parkingapp.api.routes.GeneralRoutes.*;
 
 @RestController
 @RequestMapping(BILLS)
@@ -14,21 +15,27 @@ public class BillController
     @Autowired
     private BillService billService;
 
-    @GetMapping
-    public Iterable<Bill> getAll(){
+    @GetMapping(GET_ALL)
+    public Iterable<Bill> getAll(@RequestParam(required = false, defaultValue = "") String plate){
 
-        return billService.getAll();
+        return billService.getAll(plate);
     }
 
-    @PostMapping
-    public Bill createBill(@RequestBody Bill bill){
+    @GetMapping(GET_PARKED)
+    public Iterable<Bill> getParked(@RequestParam(required = false, defaultValue = "") String plate){
 
-        return billService.createBill(bill);
+        return billService.getParked(plate);
     }
 
-    @PutMapping
-    public Bill checkOutBill(@RequestParam String plate){
+    @PostMapping(CHECK_IN)
+    public Bill checkIn(@RequestBody Bill bill){
 
-        return billService.checkOutBill(plate);
+        return billService.checkIn(bill);
+    }
+
+    @PutMapping(CHECK_OUT)
+    public Bill checkOut(@RequestParam(required = false, defaultValue = "") String plate){
+
+        return billService.checkOut(plate);
     }
 }
