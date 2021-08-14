@@ -1,0 +1,28 @@
+<app-header></app-header>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Plate</th>
+      <th scope="col">Entry Time</th>
+      <th scope="col">Departure Time</th>
+      <th scope="col">Price</th>
+      <th scope="col">Created At</th>
+      <th scope="col">Updated At</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let bill of bills">
+      <th scope="row">{{ bill.id }}</th>
+      <td>{{ bill.plate }}</td>
+      <td>{{ bill.entryTime}}</td>
+      <td>{{ bill.departureTime}}</td>
+      <td>{{ bill.price}}</td>
+      <td>{{ bill.createdAt}}</td>
+      <td>{{ bill.updatedAt }}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<app-footer></app-footer>
