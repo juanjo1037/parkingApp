@@ -13,8 +13,15 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.api.getAllBills().subscribe(data =>{
-      console.log(data)
+      this.bills=data;
     })
   }
+    editBill(plate:String){
 
+     this.router.navigate(['edit-bill', plate])
+
+    }
+    newVehicle(){
+      this.router.navigate(['new-bill'])
+    }
 }

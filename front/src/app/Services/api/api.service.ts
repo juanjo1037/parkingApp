@@ -17,4 +17,10 @@ export class ApiService {
     let address = this.url + "parking-app/api/v1/bills";
     return  this.http.get<billListI[]>(address);
   }
+
+  getSingleBill(plate: string | null):Observable<billListI>{
+    let address = this.url + "/parking-app/api/v1/bills/get_parked?plate=XXX-XXX" +plate;
+    return  this.http.get<billListI>(address);
+  }
+
 }
