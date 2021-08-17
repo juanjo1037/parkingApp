@@ -10,6 +10,7 @@ import static com.parkingapp.api.routes.GeneralRoutes.*;
 
 @RestController
 @RequestMapping(BILLS)
+@CrossOrigin(origins = "*")
 public class BillController
 {
     @Autowired

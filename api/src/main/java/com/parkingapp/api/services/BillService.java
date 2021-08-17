@@ -3,20 +3,24 @@ package com.parkingapp.api.services;
 import com.parkingapp.api.models.Bill;
 import com.parkingapp.api.repositories.BillRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.parkingapp.api.constants.GeneralConstants.PARKING_CAPACITY;
-import static com.parkingapp.api.constants.GeneralConstants.PRICE_PER_MINUTE;
-
 @Service
 public class BillService {
 
     @Autowired
     private BillRepository billRepository;
+
+    @Value("${parking.capacity}")
+    private int PARKING_CAPACITY;
+
+    @Value("${price.per.minute}")
+    private int PRICE_PER_MINUTE;
 
     public Iterable<Bill> getAll(String plate) {
 
@@ -47,9 +51,9 @@ public class BillService {
         if (!bill.getPlate().isEmpty()) {
 
             if (billRepository.getByPlateAndActive(bill.getPlate()) == null) {
-                int activeBills = billRepository.countActive();
+                int vehiclesParked = billRepository.countActive();
 
-                if (activeBills <= PARKING_CAPACITY) {
+                if (vehiclesParked < PARKING_CAPACITY) {
                     createdBill = billRepository.save(bill);
                 }
             }
@@ -65,7 +69,9 @@ public class BillService {
         if (bill != null) {
 
             bill.setDepartureTime(new Date());
-            float price = (float) Math.ceil((bill.getDepartureTime().getTime() - bill.getEntryTime().getTime()) / 60000) * PRICE_PER_MINUTE;
+            float difference = bill.getDepartureTime().getTime() - bill.getEntryTime().getTime();
+            difference = difference < 60000 ? 60000 : difference;
+            float price = (float) Math.ceil(difference / 60000) * PRICE_PER_MINUTE;
             bill.setPrice(price);
 
             int confirm = billRepository.updateByPlate(bill.getPlate(), bill.getPrice(), bill.getDepartureTime());
