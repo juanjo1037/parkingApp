@@ -35,7 +35,7 @@ public class BillController
     }
 
     @PutMapping(CHECK_OUT)
-    public Bill checkOut(@RequestParam(required = false, defaultValue = "") String plate){
+    public Bill checkOut(@RequestParam(defaultValue = "") String plate){
 
         return billService.checkOut(plate);
     }
